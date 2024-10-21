@@ -2,7 +2,11 @@ import db from "../../Connector";
 
 const getAllPost = async (req, res) => {
     try {
-        const dataAll = await db.post.findMany();
+        const dataAll = await db.post.findMany({
+            include : {
+                users : true
+            }
+        });
         res.status(200).json({
             default : true,
             data : dataAll

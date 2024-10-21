@@ -6,6 +6,12 @@ const createPost = async (req = request, res = response) => {
     const { judul, body } = req.body;
 
     try {
+
+        const User = await db.user.findUnique({
+            where : {
+                id : userId
+            }
+        })
         
         const userExists = await db.user.findUnique({
             where: { id: userId }
@@ -22,7 +28,8 @@ const createPost = async (req = request, res = response) => {
             data: {
                 judul,
                 body,
-                userId
+                userId,
+                author : User.name
             }
         });
 
